@@ -12,7 +12,6 @@ class ArticlesController < ApplicationController
     end
 
     def edit
-        
         @article = Article.find(params[:id])
     end
 
@@ -22,7 +21,7 @@ class ArticlesController < ApplicationController
         if @article.save
         #redirect_to article_path(@article)
             flash[:notice] = "Article was created succesfully!"
-            redirect_to @article         # this will redirect tp the article route(path): /articles/:id
+            redirect_to @article         # this will redirect to the article route(path): /articles/:id
         else
             render 'new'
         end
@@ -36,5 +35,11 @@ class ArticlesController < ApplicationController
         else
             render 'edit'
         end    
+    end
+
+    def destroy
+        @article = Article.find(params[:id])
+        @article.destroy
+        redirect_to articles_path        
     end
 end
