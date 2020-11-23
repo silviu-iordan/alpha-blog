@@ -20,7 +20,7 @@ class ArticlesController < ApplicationController
 
     def create
         @article = Article.new(article_params)  # witlisting the param that comes from the Internet
-        @article.user = User.first                                                                                                                                                                                                      
+        @article.user = current_user                                                                                                                                                                                                      
         #render plain: @article.inspect  
         if @article.save
         #redirect_to article_path(@article)
