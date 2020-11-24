@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
     end
 
     def logged_in?
-        #this line will trasform the value into a "boolean" and will this method will return true or false
+        #this line will trasform the value into a "boolean" and this method will return true or false
         #so it will return true or false if a current user is already logged in 
         !!current_user
     end
