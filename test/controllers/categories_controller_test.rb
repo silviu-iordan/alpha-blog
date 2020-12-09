@@ -15,13 +15,16 @@ class CategoriesControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  # test "should create category" do
-  #   assert_difference('Category.count') do
-  #     post categories_url, params: { category: {  } }
-  #   end
+  test "should create category" do
+    assert_difference('Category.count',1) do
+      #the verb assiciated with "create" something is actualy a "post" action
+      #very important, we create here the categor "Travel" but this is a test database, so it will not hit the production database
+      #to hist the production database we need to create it from browser and start the rails console verify it
+      post categories_url, params: { category: {  name: "Travel"} }
+    end
 
-  #   assert_redirected_to category_url(Category.last)
-  # end
+    assert_redirected_to category_url(Category.last)
+  end
 
   test "should show category" do
     get category_url(@category)
