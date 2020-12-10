@@ -1,4 +1,7 @@
 class CategoriesController < ApplicationController
+    #before_action will execute function "require_admin" before any other function
+    #it will no be executed before actions index and show because the admin rights should apply to create a new and create actions
+    before_action :require_admin, except: [:index,:show]
 
     def new
         @category = Category.new
@@ -16,7 +19,8 @@ class CategoriesController < ApplicationController
     end
 
     def index
-
+        #we need to add pagination, max 5 categories per page
+        @categories = Category.paginate(page: params[:page], per_page: 5)
     end
 
     def show
@@ -28,5 +32,12 @@ class CategoriesController < ApplicationController
     #we need to whitelist the params because they are introduced from Internet and they are not secured
     def category_params
         params.require(:category).permit(:name)
+    end
+
+    def require_admin
+        if !(logged_in? && current_user.admin?)
+            flash[:alert] = "Only admins can perform this action"
+            redirect_to categories_path
+        end
     end
 end
