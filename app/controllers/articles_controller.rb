@@ -21,6 +21,7 @@ class ArticlesController < ApplicationController
     end
 
     def create
+        byebug
         @article = Article.new(article_params)  # witlisting the param that comes from the Internet
         @article.user = current_user                                                                                                                                                                                                      
         #render plain: @article.inspect  
@@ -55,8 +56,9 @@ class ArticlesController < ApplicationController
         @article = Article.find(params[:id])
     end
 
+    #the below method will witelist the params that are entered and slected from a client browser from the internet
     def article_params
-        params.require(:article).permit(:title, :description)
+        params.require(:article).permit(:title, :description, category_ids: [])
     end
 
     def require_same_user
