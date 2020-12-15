@@ -18,6 +18,23 @@ class CategoriesController < ApplicationController
         end
     end
 
+    #together with the edit action we need also the do define the update action; 
+    #the submission of the edit action is handled by the update action
+    def edit
+        @category = Category.find(params[:id])
+    end
+
+    def update
+        @category = Category.find(params[:id])
+        if @category.update(category_params)
+            flash[:notice] = "Category name updated succesfully"
+            #we need to redirect to category show page after it was updated
+            redirect_to @category
+        else 
+            render 'edit'
+        end    
+    end
+
     def index
         #we need to add pagination, max 5 categories per page
         @categories = Category.paginate(page: params[:page], per_page: 5)
